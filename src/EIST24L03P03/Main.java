@@ -1,10 +1,7 @@
-package EIST24L03PB03;
-import EIST24L03PB03.Client.Client;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package EIST24L03P03;
+import EIST24L03P03.Client.Client;
 
 import java.text.ParseException;
-
-import java.util.Scanner;
 
 public class Main {
     private final Client client = new Client();

@@ -1,14 +1,11 @@
-package EIST24L03PB03.Client;
+package EIST24L03P03.Client;
 
-import EIST24L03PB03.FollowRequest;
-import EIST24L03PB03.Tweet;
+import EIST24L03P03.FollowRequest;
+import EIST24L03P03.Tweet;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import EIST24L03PB03.User;
-
-import java.util.List;
+import EIST24L03P03.User;
 
 
 public class Client {

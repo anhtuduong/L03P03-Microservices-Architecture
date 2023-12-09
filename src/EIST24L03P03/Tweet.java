@@ -1,4 +1,4 @@
-package EIST24L03PB03;
+package EIST24L03P03;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
