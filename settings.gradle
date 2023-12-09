@@ -1,1 +1,5 @@
-rootProject.name = 'L03P03-MA'
+rootProject.name = 'L03P03-Exercise'
+include 'follow-microservice'
+include 'login-microservice'
+include 'tweet-microservice'
+include 'MessageBroker'
