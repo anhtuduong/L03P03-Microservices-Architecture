@@ -14,9 +14,6 @@ public class Client {
     private static final String loginMicroserviceURL = "http://localhost:8080/login";
     private static final String tweetMicroserviceURL = "http://localhost:8081/tweet";
     private static final String followMicroserviceURL = "http://localhost:8082/follow";
-    private static final String messageBrokerURL = "http://localhost:8083/mb";
-    private static final String pageMicroserviceURL = "http://localhost:8085/page";
-
 
     public Client() {
         this.restTemplate = new RestTemplate();
