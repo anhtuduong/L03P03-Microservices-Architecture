@@ -3,9 +3,12 @@ package EIST24L03P03.Client;
 import EIST24L03P03.FollowRequest;
 import EIST24L03P03.Tweet;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import EIST24L03P03.User;
+
+import java.util.List;
 
 
 public class Client {
@@ -14,6 +17,9 @@ public class Client {
     private static final String loginMicroserviceURL = "http://localhost:8080/login";
     private static final String tweetMicroserviceURL = "http://localhost:8081/tweet";
     private static final String followMicroserviceURL = "http://localhost:8082/follow";
+    private static final String messageBrokerURL = "http://localhost:8083/mb";
+    private static final String pageMicroserviceURL = "http://localhost:8085/page";
+
 
     public Client() {
         this.restTemplate = new RestTemplate();
@@ -65,9 +71,17 @@ public class Client {
     }
 
     public void showHomePage(User user){
-        // TODO: implement this method
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<List<Tweet>> responseEntity = restTemplate.exchange(pageMicroserviceURL+"/getHomePage/"+user.getUserID(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Tweet>>() {});
+        List<Tweet> res = responseEntity.getBody();
+        assert res != null;
+        res.forEach(x->System.out.println(x.getBody()));
     }
     public void showTimeLine(User user){
-        //TODO: implement this method
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<List<Tweet>> responseEntity = restTemplate.exchange(pageMicroserviceURL+"/getTimeLine/"+user.getUserID(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Tweet>>() {});
+        List<Tweet> res = responseEntity.getBody();
+        assert res != null;
+        res.forEach(x->System.out.println(x.getBody()));
     }
 }

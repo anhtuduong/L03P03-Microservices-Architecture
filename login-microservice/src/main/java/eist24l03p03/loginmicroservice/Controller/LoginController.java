@@ -4,14 +4,13 @@ import eist24l03p03.loginmicroservice.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping({"/login"})
 public class LoginController {
-    @PostMapping("/performLogin")
-    public String authenticateUser(@RequestBody User user){
-        if("user".equals(user.getUserName()) && "passw".equals(user.getPassword())){
-            return "Login was succesful!";
-        } else {
-            return "Login unsuccesful! Invalid credentials."; // maybe add http return statuscodes as returnentity
-        }
+    public LoginController() {
+    }
+
+    @PostMapping({"/performLogin"})
+    public String authenticateUser(@RequestBody User user) {
+        return "user".equals(user.getUserName()) && "passw".equals(user.getPassword()) ? "Login was succesful!" : "Login unsuccesful! Invalid credentials.";
     }
 }

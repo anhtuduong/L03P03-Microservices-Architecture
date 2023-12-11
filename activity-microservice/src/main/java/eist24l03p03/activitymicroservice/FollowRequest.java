@@ -1,4 +1,4 @@
-package eist24l03p03.followmicroservice;
+package eist24l03p03.activitymicroservice;
 
 public class FollowRequest {
     private User follower;

@@ -1,30 +1,41 @@
 package eist24l03p03.tweetmicroservice.Controller;
 
 import eist24l03p03.tweetmicroservice.Tweet;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping(value = "/tweet")
 public class TweetController {
-
+    private RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    private static final String activityURL = "http://localhost:8084/activity";
     @DeleteMapping("/delete")
     public String deleteTweet(@RequestBody Tweet tweet){
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Tweet> requestEntity = new HttpEntity<>(tweet, headers);
+        ResponseEntity<Void> responseEntity = restTemplate.exchange(activityURL+"/deleteActivity", HttpMethod.DELETE, requestEntity, Void.class);
         return "The tweet: \n'''"+tweet.getBody()+"'''\nis deleted";
     }
 
     @PostMapping(value = "/send")
     public CompletableFuture<String> sendTweet(@RequestBody Tweet tweet){
         return CompletableFuture.supplyAsync(() -> {
-            saveToDb();
+            saveToDb(tweet);
             return ("The tweet is sent");
         });
 
     }
-    // Database functions will be implemented by another team. Database operations will take time to process. So controller method should work async.
-    public void saveToDb(){
-    // TODO: implement this method
+    // Database operations will take time to process. So controller method should work async.
+    public void saveToDb(Tweet tweet){
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Tweet> requestEntity = new HttpEntity<>(tweet, headers);
+        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(activityURL+"/addActivity", requestEntity, Void.class);
+        System.out.print(tweet.getBody());
     }
 }
+
 
