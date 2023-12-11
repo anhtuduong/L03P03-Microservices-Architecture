@@ -1,10 +1,10 @@
-package eist24l03pb03.messagebroker.Controller;
+package eist24l03p03.messagebroker.Controller;
 
-import eist24l03pb03.messagebroker.Tweet;
+import eist24l03p03.messagebroker.Tweet;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.util.HashMap;
+
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -54,7 +54,7 @@ public class MBController {
                         //ResponseEntity<String> responseEntity = new ResponseEntity<>("Tweet is sent",HttpStatusCode.valueOf(200));
                         if(responseEntity.getStatusCode() == HttpStatusCode.valueOf(200))
                             userTweetCount.replace(userId, 1 + userTweetCount.get(userId));
-                        responses.putIfAbsent(tweet.getTweetID(), responseEntity.getBody());
+                            responses.putIfAbsent(tweet.getTweetID(),responseEntity.getBody().toString());
 
                     } else {
                         responses.putIfAbsent(tweet.getTweetID(),"You finished your daily Tweet limit");

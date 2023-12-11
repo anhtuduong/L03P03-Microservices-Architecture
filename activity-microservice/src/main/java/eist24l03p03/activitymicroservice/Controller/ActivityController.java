@@ -15,7 +15,7 @@ public class ActivityController {
     private Map<Integer, List<Tweet>> userActivityMap = new HashMap<>();
     private Map<Integer, List<User>> userFollowedMap = new HashMap<>();
 
-
+    // TODO: implement the methods of this class. Make a use of the provided data structures
     public List<Tweet> getActivity(@PathVariable("id") int userID) {
         List<Tweet> defaultTweetList = new ArrayList<>();
         return defaultTweetList;
@@ -42,6 +42,7 @@ public class ActivityController {
     }
 
     public List<User> getFollowedList(@PathVariable("id") int userID) {
+        // TODO: this method is also not complete, so you have to implement it accordingly :)
         List<User> defaultUserList = new ArrayList<>();
         return defaultUserList;
     }

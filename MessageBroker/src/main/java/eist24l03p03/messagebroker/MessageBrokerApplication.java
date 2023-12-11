@@ -1,4 +1,4 @@
-package eist24l03pb03.messagebroker;
+package eist24l03p03.messagebroker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

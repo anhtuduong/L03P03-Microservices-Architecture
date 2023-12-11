@@ -1,4 +1,4 @@
-package eist24l03pb03.messagebroker;
+package eist24l03p03.messagebroker;
 
 public class User {
     private String userName;

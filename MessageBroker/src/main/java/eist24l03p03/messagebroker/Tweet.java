@@ -1,5 +1,5 @@
 
-package eist24l04p03.messagebroker;
+package eist24l03p03.messagebroker;
 
 public class Tweet {
     private int tweetID;

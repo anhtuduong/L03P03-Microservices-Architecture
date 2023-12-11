@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("/page")
 public class PageController {
 
+    // TODO: implement the methods of this class. Make a use of the provided data structures
+
     private RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
     private static final String getActivityURL = "http://localhost:8084/activity/getActivity/";
