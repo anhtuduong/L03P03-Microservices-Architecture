@@ -1,16 +1,19 @@
 package eist24l03p03.messagebroker;
 
 public class User {
+    private static int nextId = 1;
     private String userName;
     private String password;
-
     private int userID;
 
-    private static int nextId = 1;
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.userID = getNextId();
+    }
+
+    private static synchronized int getNextId() {
+        return nextId++;
     }
 
     public int getUserID() {
@@ -36,10 +39,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private static synchronized int getNextId() {
-        return nextId++;
-    }
-
-
 }

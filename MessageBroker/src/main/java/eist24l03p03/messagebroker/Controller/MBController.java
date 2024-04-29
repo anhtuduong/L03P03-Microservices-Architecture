@@ -8,26 +8,20 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.concurrent.*;
 
-
-
-
 @RestController
 @RequestMapping(value = "/mb")
 public class MBController {
-    private RestTemplate restTemplate = new RestTemplate();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     HttpHeaders headers = new HttpHeaders();
+    private RestTemplate restTemplate = new RestTemplate();
     private Map<Integer, String> responses = new ConcurrentHashMap<>();//var to store the responses from a microservice
     private Map<Integer, Integer> userTweetCount = new ConcurrentHashMap<>();
     private BlockingQueue<Tweet> tweetQueue = new LinkedBlockingQueue<>();
     private String sendTweetURL = "http://localhost:8081/tweet/send";
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-
     private final CompletableFuture<Void> processingFuture = CompletableFuture.runAsync(this::processTweets, executorService);
 
-
     @PostMapping(value = "/tweet/send")
-    public CompletableFuture<String> sendTweet(@RequestBody Tweet tweet){
-
+    public CompletableFuture<String> sendTweet(@RequestBody Tweet tweet) {
         CompletableFuture<String> future = new CompletableFuture<>();
 
         // Enqueue the tweet
@@ -44,26 +38,21 @@ public class MBController {
                 try {
                     // Dequeue tweets and process them
                     Tweet tweet = tweetQueue.take();
-                    int userId =  tweet.getUser().getUserID();
-                    userTweetCount.putIfAbsent(userId,0);
-                    if((userTweetCount.containsKey(userId) && userTweetCount.get(userId) < 5)) {
+                    int userId = tweet.getUser().getUserID();
+                    userTweetCount.putIfAbsent(userId, 0);
 
+                    if ((userTweetCount.containsKey(userId) && userTweetCount.get(userId) < 5)) {
                         headers.setContentType(MediaType.APPLICATION_JSON);
                         HttpEntity<Tweet> requestEntity = new HttpEntity<>(tweet, headers);
                         ResponseEntity<String> responseEntity = restTemplate.postForEntity(sendTweetURL, requestEntity, String.class);
                         //ResponseEntity<String> responseEntity = new ResponseEntity<>("Tweet is sent",HttpStatusCode.valueOf(200));
-                        if(responseEntity.getStatusCode() == HttpStatusCode.valueOf(200))
+                        if (responseEntity.getStatusCode() == HttpStatusCode.valueOf(200))
                             userTweetCount.replace(userId, 1 + userTweetCount.get(userId));
-                            responses.putIfAbsent(tweet.getTweetID(),responseEntity.getBody().toString());
-
+                        responses.putIfAbsent(tweet.getTweetID(), responseEntity.getBody().toString());
                     } else {
-                        responses.putIfAbsent(tweet.getTweetID(),"You finished your daily Tweet limit");
-
-
+                        responses.putIfAbsent(tweet.getTweetID(), "You finished your daily Tweet limit");
                     }
                     notifyUser(tweet);
-
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -74,7 +63,7 @@ public class MBController {
 
     //Logic to notify user after the async process is done by the thread. It can be a pop-up window or any type of communication. We will use a basic print
     //in message broker for now to sake of simplicity of message broker.
-    public void notifyUser(Tweet tweet){
+    public void notifyUser(Tweet tweet) {
         System.out.println(responses.get(tweet.getTweetID()));
     }
 

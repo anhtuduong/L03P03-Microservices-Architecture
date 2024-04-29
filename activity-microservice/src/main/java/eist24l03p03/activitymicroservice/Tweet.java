@@ -15,9 +15,9 @@ public class Tweet {
         this.tweetID = TweetId;
     }
 
-    public Tweet(){
-
+    public Tweet() {
     }
+
     public int getTweetID() {
         return tweetID;
     }
@@ -25,6 +25,7 @@ public class Tweet {
     public void setTweetID(int tweetID) {
         this.tweetID = tweetID;
     }
+
     public User getUser() {
         return user;
     }
@@ -33,7 +34,11 @@ public class Tweet {
         this.user = user;
     }
 
-    public String getBody(){return body;}
-    public void setBody(String text){this.body=text;}
+    public String getBody() {
+        return body;
+    }
 
+    public void setBody(String text) {
+        this.body = text;
+    }
 }

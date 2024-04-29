@@ -4,8 +4,9 @@ public class FollowRequest {
     private User follower;
     private User followed;
 
-    public FollowRequest(){
+    public FollowRequest() {
     }
+
     public FollowRequest(User follower, User followed) {
         this.follower = follower;
         this.followed = followed;

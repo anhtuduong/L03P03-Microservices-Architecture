@@ -9,10 +9,9 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping(value = "/follow")
 public class FollowController {
-
-    private RestTemplate restTemplate = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
     private static final String activityURL = "http://localhost:8084/activity";
+    HttpHeaders headers = new HttpHeaders();
+    private RestTemplate restTemplate = new RestTemplate();
 
     @PostMapping("/follow")
     public String follow(@RequestBody FollowRequest followRequest) {
@@ -21,7 +20,7 @@ public class FollowController {
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<FollowRequest> requestEntity = new HttpEntity<>(followRequest, headers);
-        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(activityURL+"/addFollower", requestEntity, Void.class);
+        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(activityURL + "/addFollower", requestEntity, Void.class);
         return followedUser.getUserName() + " is followed!";
     }
 
@@ -32,7 +31,7 @@ public class FollowController {
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<FollowRequest> requestEntity = new HttpEntity<>(followRequest, headers);
-        ResponseEntity<Void> responseEntity = restTemplate.exchange(activityURL+"/deleteFollower", HttpMethod.DELETE, requestEntity, Void.class);
+        ResponseEntity<Void> responseEntity = restTemplate.exchange(activityURL + "/deleteFollower", HttpMethod.DELETE, requestEntity, Void.class);
         return followedUser.getUserName() + " is unfollowed!";
     }
 }

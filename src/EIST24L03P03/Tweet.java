@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Tweet {
     @JsonProperty("tweetID")
     private int tweetID;
-
     private String body;
     private User user;
 
@@ -15,8 +14,7 @@ public class Tweet {
         this.tweetID = TweetId;
     }
 
-    public Tweet(){
-
+    public Tweet() {
     }
 
     public int getTweetID() {
@@ -26,6 +24,7 @@ public class Tweet {
     public void setTweetID(int tweetID) {
         this.tweetID = tweetID;
     }
+
     public User getUser() {
         return user;
     }
@@ -34,5 +33,11 @@ public class Tweet {
         this.user = user;
     }
 
-    public String getBody(){return body;}
-    public void setBody(String text){this.body=text;}}
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String text) {
+        this.body = text;
+    }
+}
